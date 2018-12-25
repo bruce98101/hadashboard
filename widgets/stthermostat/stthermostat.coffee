@@ -136,9 +136,9 @@ class Dashing.Stthermostat extends Dashing.Widget
 
   coolUp: ->
     $.post '/smartthings/dispatch',
-      deviceType: 'thermostat/coolUp',
+      deviceType: 'thermostat',
       deviceId: @get('device'),
-      command: "",
+      command: "coolUp",
       (data) =>
         json = JSON.parse data
         @plusTempCool()
