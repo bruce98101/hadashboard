@@ -137,7 +137,8 @@ mappings {
     }
 	path("/thermostat") {
     	action: [
-        	GET: "getThermostat"
+        	GET: "getThermostat",
+            POST: "postThermostat"
         ]
     }
 }
@@ -786,6 +787,23 @@ def getThermostat() {
             "widgetId": state.widgets.thermostat[it.displayName]]}
 
     return result
+}
+
+def postThermostat() {
+    def command = request.JSON?.command
+    def deviceId = request.JSON?.deviceId
+    log.debug "postThermostat ${deviceId}, ${command}"
+    log.debug "${request.JSON}"
+
+    if (command && deviceId) {
+        def whichThermostat = thermostats.find { it.displayName == deviceId }
+        if (!whichThermostat) {
+            return respondWithStatus(404, "Device '${deviceId}' not found.")
+        } else {
+            whichThermostat."$command"()
+        }
+    }
+    return respondWithSuccess()
 }
 
 def thermostatTempHandler(evt) { 
