@@ -792,8 +792,7 @@ def getThermostat() {
 def postThermostat() {
     def command = request.JSON?.command
     def deviceId = request.JSON?.deviceId
-    log.debug "postThermostat ${deviceId}, ${command}"
-    log.debug "${request.JSON}"
+    log.debug "postThermostat: ${request.JSON}"
 
     if (command && deviceId) {
         def whichThermostat = thermostats.find { it.displayName == deviceId }
