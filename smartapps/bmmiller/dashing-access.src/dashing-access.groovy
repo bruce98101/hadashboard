@@ -151,11 +151,13 @@ def installed() {
 }
 
 def updated() {
+	log.trace "Dashing Access: Updated, Unsubscribing..."
     unsubscribe()
     initialize()
 }
 
 def initialize() {
+	log.trace "Dashing Access: Initializing..."
     state.dashingURI = ""
     state.dashingAuthToken = ""
     state.widgets = [
@@ -188,7 +190,13 @@ def initialize() {
     subscribe(humidities, "humidity", humidityHandler)
     subscribe(batteries, "battery", batteryHandler)
     subscribe(garagedoors, "garage", garageDoorHandler)
-	subscribe(thermostats, "thermostat", thermostatHandler)
+	subscribe(thermostats, "temperature", thermostatTempHandler)
+    subscribe(thermostats, "heatingSetpoint", thermostatHeatSPHandler)
+    subscribe(thermostats, "coolingSetpoint", thermostatCoolSPHandler)
+    subscribe(thermostats, "operatingState", thermostatOpStateHandler)
+    subscribe(thermostats, "thermostatMode", thermostatModeHandler)
+    subscribe(thermostats, "thermostatFanMode", thermostatFanModeHandler)
+    log.trace "Dashing Access: Initialzed and Subscriptions made"
 }
 
 
@@ -736,7 +744,7 @@ def postGarage() {
 }
 
 def garageDoorHandler(evt) {
-    def widgetId = state.widgets.garage[evt.displayName]
+    def widgetId = state.widgets.garagedoor[evt.displayName]
     notifyWidget(widgetId, ["state": evt.value])
 }
 
@@ -759,30 +767,55 @@ def getThermostat() {
                 "temperature": whichThermostat.currentTemperature,
                 "heatingSetpoint": whichThermostat.currentHeatingSetpoint,
                 "coolingSetpoint": whichThermostat.currentCoolingSetpoint,
-                "stateOperating": whichThermostat.currentThermostatOperatingState]
+                "stateOperating": whichThermostat.currentThermostatOperatingState,
+                "mode": whichThermostat.currentThermostatMode,
+                "fan": whichThermostat.currentThermostatFanMode]
         }
     }
 
     def result = [:]
     thermostats.each {
-		log.debug "getThemostat: result set"
+		log.debug "getThemostat:"
         result[it.displayName] = [
             "temperature": it.currentTemperature,
 			"heatingSetpoint": it.currentHeatingSetpoint,
 			"coolingSetpoint": it.currentCoolingSetpoint,
-            "stateOperating": it.currentThermostatOperatingState,           
+            "stateOperating": it.currentThermostatOperatingState,  
+            "mode": it.currentThermostatMode,
+            "modeFan": it.currentThermostatFanMode,
             "widgetId": state.widgets.thermostat[it.displayName]]}
 
     return result
 }
 
-def thermostatHandler(evt) {
-	log.debug "thermostatHandler" 
+def thermostatTempHandler(evt) { 
     def widgetId = state.widgets.thermostat[evt.displayName]
     notifyWidget(widgetId, ["temperature": evt.value])
-	notifyWidget(widgetId, ["heatingSetpoint": evt.value])
-	notifyWidget(widgetId, ["coolingSetpoint": evt.value])
-    notifyWidget(widgetId, ["stateOperating": evt.value])
+}
+
+def thermostatHeatSPHandler(evt) {
+    def widgetId = state.widgets.thermostat[evt.displayName]
+    notifyWidget(widgetId, ["heatingSetpoint": evt.value])
+}
+
+def thermostatCoolSPHandler(evt) {
+    def widgetId = state.widgets.thermostat[evt.displayName]
+    notifyWidget(widgetId, ["coolingSetpoint": evt.value])
+}
+
+def thermostatOpStateHandler(evt) {
+    def widgetId = state.widgets.thermostat[evt.displayName]
+    notifyWidget(widgetId, ["operatingState": evt.value])
+}
+
+def thermostatModeHandler(evt) {
+    def widgetId = state.widgets.thermostat[evt.displayName]
+    notifyWidget(widgetId, ["mode": evt.value])
+}
+
+def thermostatFanModeHandler(evt) {
+    def widgetId = state.widgets.thermostat[evt.displayName]
+    notifyWidget(widgetId, ["modeFan": evt.value])
 }
 
 //
@@ -795,7 +828,7 @@ private registerWidget(deviceType, deviceId, widgetId) {
     }
 }
 
-private notifyWidget(widgetId, data) {
+private notifyWidget(widgetId, data) {	
     if (widgetId && state.dashingAuthToken) {
         def uri = getWidgetURI(widgetId)
         data["auth_token"] = state.dashingAuthToken
