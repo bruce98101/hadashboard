@@ -26,7 +26,7 @@ class Dashing.Stgarage extends Dashing.ClickableWidget
   queryState: ->
     $.get '/smartthings/dispatch',
       widgetId: @get('id'),
-      deviceType: 'door',
+      deviceType: 'garage',
       deviceId: @get('device')
       (data) =>
         json = JSON.parse data
@@ -35,7 +35,7 @@ class Dashing.Stgarage extends Dashing.ClickableWidget
   postState: ->
     newState = @toggleState()
     $.post '/smartthings/dispatch',
-      deviceType: 'door',
+      deviceType: 'garage',
       deviceId: @get('device'),
       command: newState,
       (data) =>
