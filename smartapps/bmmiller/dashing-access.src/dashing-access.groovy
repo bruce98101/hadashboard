@@ -713,22 +713,24 @@ def getGarage() {
         if (!whichGarageDoor) {
             return respondWithStatus(404, "Device '${deviceId}' not found.")
         } else {
+        	log.debug "${whichGarageDoor}"
             return [
                 "deviceId": deviceId,
-                "state": whichGarageDoor.currentState]
+                "state": whichGarageDoor.currentDoor]
         }
     }
 
     def result = [:]
     garagedoors.each {
         result[it.displayName] = [
-            "state": it.currentState,
+            "state": it.currentDoor,
             "widgetId": state.widgets.garagedoor[it.displayName]]}
 
     return result
 }
 
 def postGarage() {
+	log.debug "postGarage ${request.JSON}"
     def command = request.JSON?.command
     def deviceId = request.JSON?.deviceId
     log.debug "postGarage ${deviceId}, ${command}"
