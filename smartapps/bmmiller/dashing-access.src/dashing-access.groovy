@@ -39,7 +39,7 @@ preferences {
         input "temperatures", "capability.temperatureMeasurement", title: "Which temperature sensors?", multiple: true, required: false
         input "humidities", "capability.relativeHumidityMeasurement", title: "Which humidity sensors?", multiple: true, required: false
         input "batteries", "capability.battery", title: "Which battery sensors?", multiple: true, required: false
-        input "garagedoors", "capability.garageDoorControl", title: "Which garage doors?", multiple: true, required: false
+        input "garagedoors", "capability.doorControl", title: "Which garage doors?", multiple: true, required: false
 		input "thermostats", "capability.thermostat", title: "Which thermostats?", multiple: true, required: false
     }
 }
@@ -190,7 +190,7 @@ def initialize() {
     subscribe(temperatures, "temperature", temperatureHandler)
     subscribe(humidities, "humidity", humidityHandler)
     subscribe(batteries, "battery", batteryHandler)
-    subscribe(garagedoors, "garage", garageDoorHandler)
+    subscribe(garagedoors, "door", garageDoorHandler)
 	subscribe(thermostats, "temperature", thermostatTempHandler)
     subscribe(thermostats, "heatingSetpoint", thermostatHeatSPHandler)
     subscribe(thermostats, "coolingSetpoint", thermostatCoolSPHandler)
