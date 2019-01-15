@@ -178,7 +178,7 @@ def initialize() {
         ]
 
     subscribe(contacts, "contact", contactHandler)
-    subscribe(location, locationHandler)
+    subscribe(location, "mode", locationHandler)
     subscribe(locks, "lock", lockHandler)
     subscribe(motions, "motion", motionHandler)
     subscribe(meters, "power", meterPowerHandler)
@@ -344,14 +344,15 @@ def meterEnergyHandler(evt) {
 //
 def getMode() {
     def widgetId = request.JSON?.widgetId
+    
     if (widgetId) {
         if (!state['widgets']['mode'].containsKey(widgetId)) {
-            state['widgets']['mode'].put(widgetId.value, widgetId)            
+            state['widgets']['mode'].put(widgetId, widgetId)   
             log.debug "registerWidget for mode: ${widgetId}"
         }
     }
 
-    log.debug "getMode"
+    log.debug "getMode: ${location.mode}"
     return ["mode": location.mode]
 }
 
@@ -360,7 +361,7 @@ def postMode() {
     log.debug "postMode ${mode}"
 
     if (mode) {
-        setLocationMode(mode)
+        setLocationMode(mode)        	
     }
 
     if (location.mode != mode) {
