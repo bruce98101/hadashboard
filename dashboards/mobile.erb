@@ -1,0 +1,49 @@
+<script type='text/javascript'></script>
+
+<% content_for :title do %>HADashboard<% end %>
+
+    <div class="gridster" id="main">
+      <ul>
+        <!-- Row 1 -->
+        <li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
+          <div data-id="clock" data-view="Clock" data-title="Synergy" data-min="0" data-max="100"/>
+        </li>
+
+        <li data-row="1" data-col="3" data-sizex="1" data-sizey="1">
+          <div data-id="hanginglamp" data-view="Stswitch" data-icon="far fa-lightbulb" data-title="Living Room" data-device="Hanging Lamp"/>
+        </li>    
+
+        <!-- Row 2 -->
+        <li data-row="2" data-col="1" data-sizex="2" data-sizey="1">
+          <div data-id="mode" data-view="Stmode" data-title="Current Mode"/>
+        </li>
+
+        <li data-row="2" data-col="3" data-sizex="1" data-sizey="1">
+          <div data-id="lampfr" data-view="Stswitch" data-icon="far fa-lightbulb" data-title="Family Room" data-device="Lamp FR"/>
+        </li>
+
+        <!-- Row 3 -->
+
+        <li data-row="3" data-col="1" data-sizex="2" data-sizey="1">
+		<div data-id="thermostattemp" data-view="Stthermostat" data-title="Thermostat" data-device="Thermostat" data-event-click="onClick"></div>
+	</li>
+
+        <li data-row="3" data-col=3" data-sizex="1" data-sizey="1">
+          <div data-id="housefront" data-view="Stswitch" data-icon="far fa-lightbulb" data-title="House Front" data-device="Lights Front House"/>
+        </li>   
+
+        <!-- Row 4 -->
+
+        <li data-row="4" data-col="1" data-sizex="1" data-sizey="1">
+          <div data-id="apresence" data-view="Stpresence" data-icon="male" data-title="Bruce" data-device="Bruce's iPhone"/>
+        </li>
+
+        <li data-row="4" data-col="2" data-sizex="1" data-sizey="1">
+          <div data-id="bpresence" data-view="Stpresence" data-icon="male" data-title="Dad" data-device="Dad Smart Fob"/>
+        </li>
+
+        <li data-row="4" data-col="3" data-sizex="1" data-sizey="1">
+          <div data-id="brucebr" data-view="Stswitch" data-icon="far fa-lightbulb" data-title="Bruce BR" data-device="Lights Bruce BR"/>
+        </li>  		 	
+      </ul>
+    </div>
