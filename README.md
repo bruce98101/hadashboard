@@ -10,7 +10,7 @@ Download and install the [Heroku Toolbelt](https://toolbelt.heroku.com) on your 
 Clone the **hadashboard** repository to the current local directory on your machine.
 
 ``` bash
-$ git clone https://github.com/bmmiller/hadashboard.git
+$ git clone https://github.com/bruce98101/hadashboard.git
 ```
 
 Change your working directory to the repository root. Moving forward, we will be working from this directory.
@@ -135,12 +135,12 @@ To git@heroku.com:your-app-name.git
  * [new branch]      master -> master
 ```
 
-To access the hadashboard app, navigate to **http://*your-app-name*.herokuapps.com**. You will be asked to grant the hadashboard app access to your Heroku account. Make sure to **Allow Access**. The hadashboard app needs access to your Heroku account in order to verify your identity. You may be asked to log in to your Heroku account, as well. Use the email address and password from step 1.
+To access the hadashboard app, navigate to **http://*your-app-name*.herokuapp.com**. You will be asked to grant the hadashboard app access to your Heroku account. Make sure to **Allow Access**. The hadashboard app needs access to your Heroku account in order to verify your identity. You may be asked to log in to your Heroku account, as well. Use the email address and password from step 1.
 
 You will see the default dashboard, but it will not yet have access to your SmartThings.
 
 ## 6. Authorize with SmartThings
-To grant the hadashboard access to SmartThings, you must first authorize with the SmartApp created in step 3. To do so, navigate to **http://*your-app-name*.herokuapps.com/smartthings/authorize**. Log in with your SmartThings credentials and allows access to all the devices you would like to be able to control from the hadashboard.
+To grant the hadashboard access to SmartThings, you must first authorize with the SmartApp created in step 3. To do so, navigate to **http://*your-app-name*.herokuapp.com/smartthings/authorize**. Log in with your SmartThings credentials and allows access to all the devices you would like to be able to control from the hadashboard.
 
 After clicking **Authorize** you should be redirected back to the default dashboard, and you should now have access to your things.
 
