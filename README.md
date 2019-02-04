@@ -188,7 +188,7 @@ Please, refer to the Dashing website for instructions on how to change the grid 
 
 
 # Changing Dashboards
-You can also have multiple dashboards, by simply adding a new .erb file to the dashboards directory and navigating to the dashboards via **http://*your-app-name*.herokuapps.com/*dashboard-file-name-without-extension***
+You can also have multiple dashboards, by simply adding a new .erb file to the dashboards directory and navigating to the dashboards via **http://*your-app-name*.herokuapp.com/*dashboard-file-name-without-extension***
 
 For example, if you want to deploy multiple devices, you could have one dashboard per room and still only use one hadashboard app installation.
 
@@ -206,7 +206,7 @@ Specifically, update the following to include the filename of your theme that ex
 
 # Troubleshooting
 ### My Dashboard is not updating or devices do not respond to interaction.
-If your dashboard is not updating or devices have stopped responding to interaction, first try to refresh your browser. If this did not help, navigate to **http://*your-app-name*.herokuapps.com/smartthings/authorize** and re-authorize with the SmartApp (installation step 6) 
+If your dashboard is not updating or devices have stopped responding to interaction, first try to refresh your browser. If this did not help, navigate to **http://*your-app-name*.herokuapp.com/smartthings/authorize** and re-authorize with the SmartApp (installation step 6) 
 You will have to re-authorize with the SmartApp whenever you make changes to backend files (usually .rb or .erb) or the SmartApp Groovy code.
 If your dashboard stops updating or devices have stopped responding without making any changes, make sure to file a bug using the issue tracker.
 
